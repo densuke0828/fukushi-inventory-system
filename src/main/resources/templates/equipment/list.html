@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('用具一覧')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: navbar}"></div>
+<div class="container">
+    <div th:replace="~{fragments/layout :: messages}"></div>
+
+    <div class="page-header">
+        <h2>用具一覧</h2>
+        <a th:href="@{/equipment/new}" class="btn btn-primary">+ 新規登録</a>
+    </div>
+
+    <!-- フィルター -->
+    <form th:action="@{/equipment}" method="get" class="filter-bar">
+        <div>
+            <label style="font-size:0.82rem;">カテゴリ</label>
+            <select name="category">
+                <option value="">すべて</option>
+                <option th:each="c : ${categories}" th:value="${c}" th:text="${c.displayName}"
+                        th:selected="${c == selectedCategory}"></option>
+            </select>
+        </div>
+        <div>
+            <label style="font-size:0.82rem;">状態</label>
+            <select name="status">
+                <option value="">すべて</option>
+                <option th:each="s : ${statuses}" th:value="${s}" th:text="${s.displayName}"
+                        th:selected="${s == selectedStatus}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">絞り込み</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>管理番号</th>
+            <th>用具名</th>
+            <th>カテゴリ</th>
+            <th>状態</th>
+            <th>説明</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="eq : ${equipmentList}">
+            <td th:text="${eq.equipmentCode}"></td>
+            <td th:text="${eq.name}"></td>
+            <td th:text="${eq.category.displayName}"></td>
+            <td>
+                <span class="badge"
+                      th:classappend="${eq.status.name() == 'AVAILABLE'} ? 'badge-available' : (${eq.status.name() == 'RENTED'} ? 'badge-rented' : 'badge-cleaning')"
+                      th:text="${eq.status.displayName}"></span>
+            </td>
+            <td th:text="${eq.description}"></td>
+            <td>
+                <a th:href="@{'/equipment/' + ${eq.id} + '/edit'}" class="btn btn-sm btn-primary">編集</a>
+                <form th:action="@{'/equipment/' + ${eq.id} + '/delete'}" method="post" style="display:inline;"
+                      onsubmit="return confirm('削除してよろしいですか？')">
+                    <button type="submit" class="btn btn-sm btn-danger">削除</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(equipmentList)}">
+            <td colspan="6" style="text-align:center;color:#999;">データがありません</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

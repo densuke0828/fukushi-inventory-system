@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('用具登録・編集')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: navbar}"></div>
+<div class="container">
+    <h2 th:text="${equipmentDto.id != null} ? '用具 編集' : '用具 新規登録'" style="margin-bottom:1rem;"></h2>
+
+    <form th:action="@{/equipment/save}" th:object="${equipmentDto}" method="post" style="max-width:600px;">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="form-group">
+            <label>管理番号</label>
+            <input type="text" th:field="*{equipmentCode}" placeholder="例: WC-001">
+            <div class="error" th:if="${#fields.hasErrors('equipmentCode')}" th:errors="*{equipmentCode}"></div>
+        </div>
+
+        <div class="form-group">
+            <label>用具名</label>
+            <input type="text" th:field="*{name}" placeholder="例: 自走式車椅子 A">
+            <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+
+        <div class="form-group">
+            <label>カテゴリ</label>
+            <select th:field="*{category}">
+                <option value="">-- 選択 --</option>
+                <option th:each="c : ${categories}" th:value="${c}" th:text="${c.displayName}"></option>
+            </select>
+            <div class="error" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+        </div>
+
+        <div class="form-group">
+            <label>状態</label>
+            <select th:field="*{status}">
+                <option th:each="s : ${statuses}" th:value="${s}" th:text="${s.displayName}"></option>
+            </select>
+            <div class="error" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></div>
+        </div>
+
+        <div class="form-group">
+            <label>説明・備考</label>
+            <textarea th:field="*{description}" placeholder="用具の説明を入力"></textarea>
+            <div class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">保存</button>
+            <a th:href="@{/equipment}" class="btn" style="background:var(--gray-200);">キャンセル</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
