@@ -25,20 +25,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="r : ${rentalList}">
-            <td th:text="${r.equipmentCode}"></td>
-            <td th:text="${r.equipmentName}"></td>
-            <td th:text="${r.renterName}"></td>
-            <td th:text="${r.rentalDate}"></td>
-            <td th:text="${r.expectedReturnDate}"></td>
-            <td th:text="${r.actualReturnDate != null} ? ${r.actualReturnDate} : '-'"></td>
+        <tr th:each="rental : ${rentalList}">
+            <td th:text="${rental.equipmentCode}"></td>
+            <td th:text="${rental.equipmentName}"></td>
+            <td th:text="${rental.renterName}"></td>
+            <td th:text="${rental.rentalDate}"></td>
+            <td th:text="${rental.expectedReturnDate}"></td>
+            <td th:text="${rental.actualReturnDate != null} ? ${rental.actualReturnDate} : '-'"></td>
             <td>
-                <span th:if="${r.actualReturnDate == null}" class="badge badge-rented">貸出中</span>
-                <span th:if="${r.actualReturnDate != null}" class="badge badge-returned">返却済</span>
+                <span th:if="${rental.actualReturnDate == null}" class="badge badge-rented">貸出中</span>
+                <span th:if="${rental.actualReturnDate != null}" class="badge badge-returned">返却済</span>
             </td>
             <td>
-                <form th:if="${r.actualReturnDate == null}"
-                      th:action="@{'/rental/' + ${r.id} + '/return'}" method="post" style="display:inline;"
+                <form th:if="${rental.actualReturnDate == null}"
+                      th:action="@{'/rental/' + ${rental.id} + '/return'}" method="post" style="display:inline;"
                       onsubmit="return confirm('返却処理を行いますか？')">
                     <button type="submit" class="btn btn-sm btn-success">返却</button>
                 </form>

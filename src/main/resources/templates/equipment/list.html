@@ -44,19 +44,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="eq : ${equipmentList}">
-            <td th:text="${eq.equipmentCode}"></td>
-            <td th:text="${eq.name}"></td>
-            <td th:text="${eq.category.displayName}"></td>
+        <tr th:each="equipment : ${equipmentList}">
+            <td th:text="${equipment.equipmentCode}"></td>
+            <td th:text="${equipment.name}"></td>
+            <td th:text="${equipment.category.displayName}"></td>
             <td>
                 <span class="badge"
-                      th:classappend="${eq.status.name() == 'AVAILABLE'} ? 'badge-available' : (${eq.status.name() == 'RENTED'} ? 'badge-rented' : 'badge-cleaning')"
-                      th:text="${eq.status.displayName}"></span>
+                      th:classappend="${equipment.status.name() == 'AVAILABLE'} ? 'badge-available' : (${equipment.status.name() == 'RENTED'} ? 'badge-rented' : 'badge-cleaning')"
+                      th:text="${equipment.status.displayName}"></span>
             </td>
-            <td th:text="${eq.description}"></td>
+            <td th:text="${equipment.description}"></td>
             <td>
-                <a th:href="@{'/equipment/' + ${eq.id} + '/edit'}" class="btn btn-sm btn-primary">編集</a>
-                <form th:action="@{'/equipment/' + ${eq.id} + '/delete'}" method="post" style="display:inline;"
+                <a th:href="@{'/equipment/' + ${equipment.id} + '/edit'}" class="btn btn-sm btn-primary">編集</a>
+                <form th:action="@{'/equipment/' + ${equipment.id} + '/delete'}" method="post" style="display:inline;"
                       onsubmit="return confirm('削除してよろしいですか？')">
                     <button type="submit" class="btn btn-sm btn-danger">削除</button>
                 </form>
