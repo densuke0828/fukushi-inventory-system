@@ -1,7 +1,25 @@
-# 変更履歴
+# アプリケーション変更履歴
 
-## 2026-02-03: 用具一覧画面への遷移時にエラー発生 > Done
+<details>
+<summary><b>fix: エラー修正</b> (クリックで展開)</summary>
 
-- Thymeleafで 'th:each="eq : ${equipmentList}"' のように予約語である eq を変数名としていた
+### 2026-02-03: 用具一覧画面への遷移時に発生するエラー修正
+
+- Thymeleafで 'th:each="eq : ${equipmentList}"' のように予約語である 'eq' を変数名としていた
     - 変数名を 'equipment (意味のある単数系名詞)' へ変更して解決
-    - 同様に r など単純な変数名になっていた部分をリファクタリングした
+
+</details>
+
+<details>
+<summary><b>feat: 機能追加</b> (クリックで展開)</summary>
+
+</details>
+
+<details>
+<summary><b>refactor: リファクタリング</b> (クリックで展開)</summary>
+
+### 2026-02-04: sやcなどで変数定義していた箇所を可読性のため修正
+
+- sやcなどで変数定義していた箇所を意味のある単数形名詞 (category など)へ修正
+
+</details>

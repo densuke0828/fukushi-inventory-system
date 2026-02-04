@@ -37,7 +37,7 @@ public class RentalController {
                 .rentalDate(LocalDate.now())
                 .expectedReturnDate(LocalDate.now().plusMonths(1))
                 .build());
-        model.addAttribute("availableEquipment",
+        model.addAttribute("availableEquipments",
                 equipmentService.findByStatus(EquipmentStatus.AVAILABLE));
         return "rental/form";
     }

@@ -4,9 +4,14 @@
 
 **福祉用具(車椅子・特殊寝台・歩行器など) の在庫管理を行う Web アプリケーション**
 
-## 変更履歴
+## アプリケーション変更履歴
 
 - [変更履歴はこちら (CHANGELOG.md)](./CHANGELOG.md)
+
+## 開発状況
+
+現在の詳細な進捗状況やタスクの優先順位は、以下のProjectボードで管理してしています
+- [開発ロードマップ (GitHub Projects)](https://github.com/users/densuke0828/projects/1)
 
 ## 技術スタック
 
@@ -63,14 +68,14 @@ src/main/resources/
 
 ## パッケージの役割
 
-| パッケージ | 責務 |
-|-----------|------|
+| パッケージ        | 責務                                          |
+|:-------------|:--------------------------------------------|
 | `controller` | HTTP リクエストを受け取り、Service を呼び出し、テンプレートにデータを渡す |
-| `service` | ビジネスルールの適用、トランザクション境界の管理、Entity と DTO の変換 |
-| `repository` | Spring Data JPA による DB アクセス。カスタムクエリメソッドを定義 |
-| `entity` | JPA エンティティ。DB テーブルとの O/R マッピングを担当 |
-| `dto` | フォーム入力のバインディングとバリデーション制約を定義 |
-| `enums` | 用具カテゴリ (8 種) とステータス (3 種) を型安全に管理 |
+| `service`    | ビジネスルールの適用、トランザクション境界の管理、Entity と DTO の変換   |
+| `repository` | Spring Data JPA による DB アクセス。カスタムクエリメソッドを定義  |
+| `entity`     | JPA エンティティ。DB テーブルとの O/R マッピングを担当           |
+| `dto`        | フォーム入力のバインディングとバリデーション制約を定義                 |
+| `enums`      | 用具カテゴリ (8 種) とステータス (3 種) を型安全に管理           |
 
 ## 主要クラスの説明
 
@@ -174,18 +179,18 @@ src/main/resources/
 
 ## エンドポイント一覧
 
-| メソッド | パス | 機能 |
-|---------|------|------|
-| GET | `/` | ダッシュボード |
-| GET | `/equipment` | 用具一覧 (フィルタ対応) |
-| GET | `/equipment/new` | 用具登録フォーム |
-| GET | `/equipment/{id}/edit` | 用具編集フォーム |
-| POST | `/equipment/save` | 用具の保存 |
-| POST | `/equipment/{id}/delete` | 用具の削除 |
-| GET | `/rental` | 貸出一覧 |
-| GET | `/rental/new` | 貸出登録フォーム |
-| POST | `/rental/save` | 貸出の保存 |
-| POST | `/rental/{id}/return` | 返却処理 |
+| メソッド | パス                       | 機能            |
+|:-----|:-------------------------|:--------------|
+| GET  | `/`                      | ダッシュボード       |
+| GET  | `/equipment`             | 用具一覧 (フィルタ対応) |
+| GET  | `/equipment/new`         | 用具登録フォーム      |
+| GET  | `/equipment/{id}/edit`   | 用具編集フォーム      |
+| POST | `/equipment/save`        | 用具の保存         |
+| POST | `/equipment/{id}/delete` | 用具の削除         |
+| GET  | `/rental`                | 貸出一覧          |
+| GET  | `/rental/new`            | 貸出登録フォーム      |
+| POST | `/rental/save`           | 貸出の保存         |
+| POST | `/rental/{id}/return`    | 返却処理          |
 
 ## DB スキーマ
 
@@ -214,24 +219,3 @@ equipment                          rental_record
 # H2 コンソール:    http://localhost:8080/h2-console/
 #   JDBC URL: jdbc:h2:mem:fukushi / User: sa / Password: (空)
 ```
-
-## 今後のロードマップ
-
-今後は以下の作業を行う予定です。
-
-### 1. README.md の整備
-- [ ] README.md を整備するとともにアプリケーションの構造を理解する
-
-### 2. バグ修正
-- [ ] 「貸出一覧」画面→「新規貸出」ボタン押下でエラーが発生
-
-### 3. リファクタリング
-- [ ] 保守性を高めるためControllerから返されるリスト名を〇〇sに統一
-
-### 4. DB周辺
-- [ ] PostgreSQL への移行
-- [ ] Docker を導入
-- [ ] MyBatis の導入
-
-### 5. テストコードの実装
-- [ ] JUnit を活用した自動テストを実装

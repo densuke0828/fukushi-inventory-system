@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head('新規貸出')}"></head>
 <body>
 <div th:replace="~{fragments/layout :: navbar}"></div>
@@ -12,9 +12,9 @@
             <label>用具</label>
             <select th:field="*{equipmentId}">
                 <option value="">-- 選択 --</option>
-                <option th:each="eq : ${availableEquipment}"
-                        th:value="${eq.id}"
-                        th:text="${eq.equipmentCode + ' / ' + eq.name}"></option>
+                <option th:each="availableEquipment : ${availableEquipments}"
+                        th:value="${availableEquipment.id}"
+                        th:text="${availableEquipment.equipmentCode + ' / ' + availableEquipment.name}"></option>
             </select>
             <div class="error" th:if="${#fields.hasErrors('equipmentId')}" th:errors="*{equipmentId}"></div>
         </div>
