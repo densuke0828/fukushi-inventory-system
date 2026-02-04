@@ -24,14 +24,14 @@ public class EquipmentController {
                        @RequestParam(required = false) EquipmentStatus status,
                        Model model) {
         if (category != null && status != null) {
-            model.addAttribute("equipmentList",
+            model.addAttribute("equipments",
                     equipmentService.findByCategoryAndStatus(category, status));
         } else if (category != null) {
-            model.addAttribute("equipmentList", equipmentService.findByCategory(category));
+            model.addAttribute("equipments", equipmentService.findByCategory(category));
         } else if (status != null) {
-            model.addAttribute("equipmentList", equipmentService.findByStatus(status));
+            model.addAttribute("equipments", equipmentService.findByStatus(status));
         } else {
-            model.addAttribute("equipmentList", equipmentService.findAll());
+            model.addAttribute("equipments", equipmentService.findAll());
         }
         model.addAttribute("categories", EquipmentCategory.values());
         model.addAttribute("statuses", EquipmentStatus.values());

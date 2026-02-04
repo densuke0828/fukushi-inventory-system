@@ -44,7 +44,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="equipment : ${equipmentList}">
+        <tr th:each="equipment : ${equipments}">
             <td th:text="${equipment.equipmentCode}"></td>
             <td th:text="${equipment.name}"></td>
             <td th:text="${equipment.category.displayName}"></td>
@@ -62,7 +62,7 @@
                 </form>
             </td>
         </tr>
-        <tr th:if="${#lists.isEmpty(equipmentList)}">
+        <tr th:if="${#lists.isEmpty(equipments)}">
             <td colspan="6" style="text-align:center;color:#999;">データがありません</td>
         </tr>
         </tbody>
