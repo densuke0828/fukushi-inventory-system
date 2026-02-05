@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('新規貸出')}"></head>
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.uk/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+>
+<head>
+    <title>新規貸出</title>
+</head>
 <body>
-<div th:replace="~{fragments/layout :: navbar}"></div>
-<div class="container">
+<section layout:fragment="content">
     <h2 style="margin-bottom:1rem;">新規貸出登録</h2>
 
     <form th:action="@{/rental/save}" th:object="${rentalDto}" method="post" style="max-width:600px;">
@@ -52,6 +57,6 @@
             <a th:href="@{/rental}" class="btn" style="background:var(--gray-200);">キャンセル</a>
         </div>
     </form>
-</div>
+</section>
 </body>
 </html>
