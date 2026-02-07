@@ -18,6 +18,14 @@
 <details>
 <summary><b>refactor: リファクタリング</b> (クリックで展開)</summary>
 
+### 2026-02-07: MyBatisの導入
+
+- より複雑なSQL文に対応するためにMyBatisを導入
+
+### 2026-02-06: H2DB > PostgreSQLへ移行
+
+- より実践的なDBを構築するためPostgreSQLへ移行: Done
+
 ### 2026-02-05: Thymeleaf Layout Dialectを使ってコードを共通化
 
 - 子ページから個別に呼び出す形ではなくなったのでコードの見通しが良くなった
