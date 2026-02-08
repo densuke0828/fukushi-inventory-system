@@ -13,6 +13,10 @@
 <details>
 <summary><b>feat: 機能追加</b> (クリックで展開)</summary>
 
+### 2026-02-08: schema.sqlなどのファイルでDB管理 + DB設計見直し: wip
+
+- メーカーや保管場所などテーブル設計を細分化し保守しやすい設計を目指す
+
 </details>
 
 <details>

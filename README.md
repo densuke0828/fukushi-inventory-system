@@ -66,6 +66,23 @@ src/main/resources/
     └── rental/form.html               #   貸出登録フォーム
 ```
 
+## DB スキーマ
+
+```
+修正中・・・
+```
+
+### DB スキーマ設計の考え方
+
+1. 画面に表示したい情報を考える
+2. 業務の動き(フェーズ)から考える
+3. その項目を別テーブルで管理するべきか考える
+   1. その項目で検索や集計する機会があるなら分ける
+4. 共通管理カラム(メタデータ)はどのテーブルでも必要
+    1. id: 行を一意に識別
+    2. created_at: 作成日
+    3. updated_at: 更新日
+
 ## パッケージの役割
 
 | パッケージ        | 責務                                          |
@@ -191,31 +208,3 @@ src/main/resources/
 | GET  | `/rental/new`            | 貸出登録フォーム      |
 | POST | `/rental/save`           | 貸出の保存         |
 | POST | `/rental/{id}/return`    | 返却処理          |
-
-## DB スキーマ
-
-```
-equipment                          rental_record
-├── id (BIGINT, PK)                ├── id (BIGINT, PK)
-├── equipment_code (VARCHAR 20)    ├── equipment_id (BIGINT, FK)
-├── name (VARCHAR 100)             ├── renter_name (VARCHAR 100)
-├── category (VARCHAR 30)          ├── renter_contact (VARCHAR 100)
-├── status (VARCHAR 20)            ├── rental_date (DATE)
-├── description (VARCHAR 500)      ├── expected_return_date (DATE)
-├── created_at (TIMESTAMP)         ├── actual_return_date (DATE)
-└── updated_at (TIMESTAMP)         ├── notes (VARCHAR 500)
-                                   ├── created_at (TIMESTAMP)
-        1 ◀──────────── * (FK)     └── updated_at (TIMESTAMP)
-```
-
-## 起動方法
-
-```bash
-# ビルド & 起動
-./gradlew bootRun
-
-# アクセス
-# アプリケーション: http://localhost:8080/
-# H2 コンソール:    http://localhost:8080/h2-console/
-#   JDBC URL: jdbc:h2:mem:fukushi / User: sa / Password: (空)
-```
