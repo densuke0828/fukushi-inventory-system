@@ -1,5 +1,12 @@
-DROP TABLE IF EXISTS equipment;
-DROP TABLE IF EXISTS rental_record;
+--  -- 一旦リセット
+--  DROP TABLE IF EXISTS stocks;
+--  DROP TABLE IF EXISTS products;
+--  DROP TABLE IF EXISTS statuses;
+--  DROP TABLE IF EXISTS locations;
+--  DROP TABLE IF EXISTS categories;
+--  DROP TABLE IF EXISTS manufactures;
+--  DROP TABLE IF EXISTS rental_record;
+--  DROP TABLE IF EXISTS equipment;
 
 -- メーカーテーブル
 CREATE TABLE manufactures (
@@ -19,7 +26,7 @@ CREATE TABLE categories (
 
 -- 保管場所テーブル
 CREATE TABLE locations (
-    id id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(20) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
@@ -27,7 +34,7 @@ CREATE TABLE locations (
 
 -- 用具状態テーブル
 CREATE TABLE statuses (
-    id id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     status VARCHAR(20) UNIQUE NOT NULL,
     display_name VARCHAR(20) NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
@@ -36,7 +43,7 @@ CREATE TABLE statuses (
 
 -- 製品テーブル
 CREATE TABLE products (
-    id id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     manufactures_id INT REFERENCES manufactures(id),
     created_at TIMESTAMP DEFAULT NOW(),
@@ -50,8 +57,8 @@ CREATE TABLE stocks (
     products_id INT NOT NULL REFERENCES products(id),
     locations_id INT NOT NULL REFERENCES locations(id),
     statuses_id INT NOT NULL REFERENCES statuses(id),
-    notes VARCHAR(500),
     purchased_at DATE,
+    notes VARCHAR(500),
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );

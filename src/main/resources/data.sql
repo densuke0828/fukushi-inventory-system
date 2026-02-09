@@ -42,8 +42,9 @@ INSERT INTO categories (name, created_at, updated_at) VALUES
 -- 初期データ: 保管場所データ
 INSERT INTO locations (name, created_at, updated_at) VALUES
 ('本社', NOW(), NOW()),
-('片江', NOW(), NOW()),
-('長尾', NOW(), NOW());
+('第一倉庫', NOW(), NOW()),
+('第二倉庫', NOW(), NOW()),
+('利用者宅', NOW(), NOW());
 
 -- 初期データ: 用具状態データ
 INSERT INTO statuses (status, display_name, created_at, updated_at) VALUES
@@ -52,5 +53,65 @@ INSERT INTO statuses (status, display_name, created_at, updated_at) VALUES
 ('CLEANING', '清掃中', NOW(), NOW()),
 ('REPAIR', '修理中', NOW(), NOW());
 
--- 初期データ: 用具データ(保留)
+-- 初期データ: 製品データ
+INSERT INTO products (
+    name,
+    manufactures_id,
+    created_at,
+    updated_at
+) VALUES (
+    'ハッピーⅡ',
+    (SELECT id FROM manufactures WHERE name = '竹虎'),
+    NOW(),
+    NOW()
+), (
+    '楽匠Z 3モーター',
+    (SELECT id FROM manufactures WHERE name = 'パラマウント'),
+    NOW(),
+    NOW()
+), (
+    'ベスポジZ',
+    (SELECT id FROM manufactures WHERE name = 'ホクメイ'),
+    NOW(),
+    NOW()
+);
+
+-- 初期データ: 在庫データ
+INSERT INTO stocks (
+    serial_code,
+    products_id,
+    locations_id,
+    statuses_id,
+    purchased_at,
+    notes,
+    created_at,
+    updated_at
+) VALUES (
+    'WK-0001',
+    (SELECT id FROM products WHERE name = 'ハッピーⅡ'),
+    (SELECT id FROM locations WHERE name = '本社'),
+    (SELECT id FROM statuses WHERE status = 'AVAILABLE'),
+    '2025-02-02',
+    '新品未開封',
+    NOW(),
+    NOW()
+), (
+    'BD-0001',
+    (SELECT id FROM products WHERE name = '楽匠Z 3モーター'),
+    (SELECT id FROM locations WHERE name = '本社'),
+    (SELECT id FROM statuses WHERE status = 'AVAILABLE'),
+    '2023-11-02',
+    '',
+    NOW(),
+    NOW()
+), (
+    'HR-0001',
+    (SELECT id FROM products WHERE name = 'ベスポジZ'),
+    (SELECT id FROM locations WHERE name = '第一倉庫'),
+    (SELECT id FROM statuses WHERE status = 'REPAIR'),
+    '2025-02-02',
+    'バネ発注中',
+    NOW(),
+    NOW()
+);
 
