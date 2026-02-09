@@ -66,13 +66,67 @@ src/main/resources/
     └── rental/form.html               #   貸出登録フォーム
 ```
 
-## DB スキーマ
+## DB テーブル
 
 ```
-修正中・・・
+-- メーカーテーブル (Manufactures)
+CREATE TABLE manufactures (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(20) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 用具種目テーブル (Categories)
+CREATE TABLE categories (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(10) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 保管場所テーブル (Locations)
+CREATE TABLE locations (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(20) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 用具状態テーブル (Statuses)
+CREATE TABLE statuses (
+    id SERIAL PRIMARY KEY,
+    status VARCHAR(20) UNIQUE NOT NULL,
+    display_name VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 製品テーブル (Products)
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    categories_id INT REFERENCES categories(id),
+    manufactures_id INT REFERENCES manufactures(id),
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 在庫テーブル (Stocks)
+CREATE TABLE stocks (
+    id SERIAL PRIMARY KEY,
+    serial_code VARCHAR(20) UNIQUE NOT NULL,
+    products_id INT NOT NULL REFERENCES products(id),
+    locations_id INT NOT NULL REFERENCES locations(id),
+    statuses_id INT NOT NULL REFERENCES statuses(id),
+    purchased_at DATE,
+    notes VARCHAR(500),
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
 ```
 
-### DB スキーマ設計の考え方
+### DB テーブル設計の考え方
 
 1. 画面に表示したい情報を考える
 2. 業務の動き(フェーズ)から考える

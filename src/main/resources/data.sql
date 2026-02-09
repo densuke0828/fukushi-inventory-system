@@ -56,21 +56,25 @@ INSERT INTO statuses (status, display_name, created_at, updated_at) VALUES
 -- 初期データ: 製品データ
 INSERT INTO products (
     name,
+    categories_id,
     manufactures_id,
     created_at,
     updated_at
 ) VALUES (
     'ハッピーⅡ',
+    (SELECT id FROM categories WHERE name = '歩行器'),
     (SELECT id FROM manufactures WHERE name = '竹虎'),
     NOW(),
     NOW()
 ), (
     '楽匠Z 3モーター',
+    (SELECT id FROM categories WHERE name = '特殊寝台'),
     (SELECT id FROM manufactures WHERE name = 'パラマウント'),
     NOW(),
     NOW()
 ), (
     'ベスポジZ',
+    (SELECT id FROM categories WHERE name = '手すり'),
     (SELECT id FROM manufactures WHERE name = 'ホクメイ'),
     NOW(),
     NOW()
