@@ -11,7 +11,7 @@
 -- メーカーテーブル
 CREATE TABLE manufactures (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(20) UNIQUE NOT NULL,
+    name VARCHAR(30) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
@@ -19,7 +19,7 @@ CREATE TABLE manufactures (
 -- 用具種目テーブル
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(10) UNIQUE NOT NULL,
+    name VARCHAR(30) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
@@ -27,7 +27,7 @@ CREATE TABLE categories (
 -- 保管場所テーブル
 CREATE TABLE locations (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(20) UNIQUE NOT NULL,
+    name VARCHAR(30) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
@@ -54,7 +54,7 @@ CREATE TABLE products (
 -- 在庫テーブル
 CREATE TABLE stocks (
     id SERIAL PRIMARY KEY,
-    serial_code VARCHAR(20) UNIQUE NOT NULL,
+    serial_code VARCHAR(30) UNIQUE NOT NULL,
     products_id INT NOT NULL REFERENCES products(id),
     locations_id INT NOT NULL REFERENCES locations(id),
     statuses_id INT NOT NULL REFERENCES statuses(id),

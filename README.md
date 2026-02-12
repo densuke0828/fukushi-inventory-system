@@ -69,31 +69,31 @@ src/main/resources/
 ## DB テーブル
 
 ```
--- メーカーテーブル (Manufactures)
+-- メーカーテーブル (manufactures)
 CREATE TABLE manufactures (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(20) UNIQUE NOT NULL,
+    name VARCHAR(30) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- 用具種目テーブル (Categories)
+-- 用具種目テーブル (categories)
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(10) UNIQUE NOT NULL,
+    name VARCHAR(30) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- 保管場所テーブル (Locations)
+-- 保管場所テーブル (locations)
 CREATE TABLE locations (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(20) UNIQUE NOT NULL,
+    name VARCHAR(30) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- 用具状態テーブル (Statuses)
+-- 用具状態テーブル (statuses)
 CREATE TABLE statuses (
     id SERIAL PRIMARY KEY,
     status VARCHAR(20) UNIQUE NOT NULL,
@@ -102,7 +102,7 @@ CREATE TABLE statuses (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- 製品テーブル (Products)
+-- 製品テーブル (products)
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
@@ -112,10 +112,10 @@ CREATE TABLE products (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- 在庫テーブル (Stocks)
+-- 在庫テーブル (stocks)
 CREATE TABLE stocks (
     id SERIAL PRIMARY KEY,
-    serial_code VARCHAR(20) UNIQUE NOT NULL,
+    serial_code VARCHAR(30) UNIQUE NOT NULL,
     products_id INT NOT NULL REFERENCES products(id),
     locations_id INT NOT NULL REFERENCES locations(id),
     statuses_id INT NOT NULL REFERENCES statuses(id),
@@ -146,7 +146,7 @@ CREATE TABLE stocks (
 | `repository` | Spring Data JPA による DB アクセス。カスタムクエリメソッドを定義  |
 | `entity`     | JPA エンティティ。DB テーブルとの O/R マッピングを担当           |
 | `dto`        | フォーム入力のバインディングとバリデーション制約を定義                 |
-| `enums`      | 用具カテゴリ (8 種) とステータス (3 種) を型安全に管理           |
+| `enums`      | 用具の状態(在庫や清掃中など)を管理                          |
 
 ## 主要クラスの説明
 
@@ -178,8 +178,7 @@ CREATE TABLE stocks (
 
 ### Enum
 
-- **EquipmentCategory** — 車椅子 / 特殊寝台 / 歩行器 / 手すり / スロープ / 移動用リフト / 床ずれ防止用具 / その他 の 8 種類
-- **EquipmentStatus** — 在庫 (`AVAILABLE`) / 貸出中 (`RENTED`) / 洗浄中 (`CLEANING`) の 3 状態
+- **EquipmentStatus** — 在庫 (`AVAILABLE`) / 貸出中 (`RENTED`) / 洗浄中 (`CLEANING`) / 修理中 (`REPAIR`)の 4 状態
 
 ## リクエスト処理フロー
 

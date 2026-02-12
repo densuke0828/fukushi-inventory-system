@@ -1,7 +1,5 @@
 package com.example.fukushi.repository;
 
-import com.example.fukushi.entity.Equipment;
-import com.example.fukushi.enums.EquipmentCategory;
 import com.example.fukushi.enums.EquipmentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 

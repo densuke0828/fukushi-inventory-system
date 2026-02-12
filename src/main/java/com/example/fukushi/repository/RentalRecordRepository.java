@@ -1,6 +1,5 @@
 package com.example.fukushi.repository;
 
-import com.example.fukushi.entity.RentalRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

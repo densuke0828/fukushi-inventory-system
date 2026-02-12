@@ -9,7 +9,8 @@ public enum EquipmentStatus {
 
     AVAILABLE("在庫"),
     RENTED("貸出中"),
-    CLEANING("清掃中");
+    CLEANING("清掃中"),
+    REPAIR("修理中");
 
     private final String displayName;
 }

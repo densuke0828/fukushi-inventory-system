@@ -1,6 +1,5 @@
 package com.example.fukushi.dto;
 
-import com.example.fukushi.enums.EquipmentCategory;
 import com.example.fukushi.enums.EquipmentStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

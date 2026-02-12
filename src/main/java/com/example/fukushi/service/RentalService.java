@@ -1,8 +1,6 @@
 package com.example.fukushi.service;
 
 import com.example.fukushi.dto.RentalRecordDto;
-import com.example.fukushi.entity.Equipment;
-import com.example.fukushi.entity.RentalRecord;
 import com.example.fukushi.enums.EquipmentStatus;
 import com.example.fukushi.repository.RentalRecordRepository;
 import lombok.RequiredArgsConstructor;

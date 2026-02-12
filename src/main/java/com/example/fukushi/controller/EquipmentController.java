@@ -1,7 +1,6 @@
 package com.example.fukushi.controller;
 
 import com.example.fukushi.dto.EquipmentDto;
-import com.example.fukushi.enums.EquipmentCategory;
 import com.example.fukushi.enums.EquipmentStatus;
 import com.example.fukushi.service.EquipmentService;
 import jakarta.validation.Valid;

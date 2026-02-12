@@ -13,6 +13,10 @@
 <details>
 <summary><b>feat: 機能追加</b> (クリックで展開)</summary>
 
+### 2026-02-12: 新しいDB設計に合わせたEntityを定義
+
+- wip: CRUD操作ができるようにEntityを定義
+
 ### 2026-02-09: schema.sqlなどのファイルでDB管理 + DB設計見直し
 
 - Done: DB設計の見直し(data.sql, schema.sql)完了
