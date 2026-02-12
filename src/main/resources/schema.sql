@@ -45,8 +45,9 @@ CREATE TABLE statuses (
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    categories_id INT REFERENCES categories(id),
-    manufactures_id INT REFERENCES manufactures(id),
+    model_number VARCHAR(50) NOT NULL,
+    categories_id INT NOT NULL REFERENCES categories(id),
+    manufactures_id INT NOT NULL REFERENCES manufactures(id),
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );

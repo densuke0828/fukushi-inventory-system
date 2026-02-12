@@ -13,6 +13,10 @@
 <details>
 <summary><b>feat: 機能追加</b> (クリックで展開)</summary>
 
+### 2026-02-13: 新しいDB設計に合わせたEntityを定義
+
+- wip: Entityを定義中。次回は在庫テーブルに合わせたEntityを実装予定
+
 ### 2026-02-12: 新しいDB設計に合わせたEntityを定義
 
 - wip: CRUD操作ができるようにEntityを定義
