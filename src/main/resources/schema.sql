@@ -32,7 +32,7 @@ CREATE TABLE locations (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- 用具状態テーブル
+-- 商品状態テーブル
 CREATE TABLE statuses (
     id SERIAL PRIMARY KEY,
     status VARCHAR(20) UNIQUE NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE products (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- 在庫テーブル
+-- 保有商品テーブル
 CREATE TABLE stocks (
     id SERIAL PRIMARY KEY,
     serial_code VARCHAR(30) UNIQUE NOT NULL,

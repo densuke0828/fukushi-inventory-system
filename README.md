@@ -43,8 +43,12 @@ src/main/java/com/example/fukushi/
 │   ├── EquipmentRepository.java
 │   └── RentalRecordRepository.java
 ├── entity/                            # JPA エンティティ (DB テーブルマッピング)
-│   ├── Equipment.java
-│   └── RentalRecord.java
+│   ├── Category.java
+│   ├── Location.java
+│   ├── Manufacture.java
+│   ├── Product.java
+│   ├── Status.java
+│   └── Stock.java
 ├── dto/                               # データ転送オブジェクト (入力バリデーション)
 │   ├── EquipmentDto.java
 │   └── RentalRecordDto.java
@@ -56,6 +60,7 @@ src/main/java/com/example/fukushi/
 src/main/resources/
 ├── application.yml                    # アプリケーション設定
 ├── data.sql                           # 初期データ投入
+├── schema.sql                         # DBスキーマ定義
 ├── static/css/style.css               # スタイルシート
 └── templates/                         # Thymeleaf テンプレート
     ├── index.html                     #   ダッシュボード
@@ -112,7 +117,7 @@ CREATE TABLE products (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- 在庫テーブル (stocks)
+-- 保有商品テーブル (stocks)
 CREATE TABLE stocks (
     id SERIAL PRIMARY KEY,
     serial_code VARCHAR(30) UNIQUE NOT NULL,
@@ -125,28 +130,6 @@ CREATE TABLE stocks (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 ```
-
-### DB テーブル設計の考え方
-
-1. 画面に表示したい情報を考える
-2. 業務の動き(フェーズ)から考える
-3. その項目を別テーブルで管理するべきか考える
-   1. その項目で検索や集計する機会があるなら分ける
-4. 共通管理カラム(メタデータ)はどのテーブルでも必要
-    1. id: 行を一意に識別
-    2. created_at: 作成日
-    3. updated_at: 更新日
-
-## パッケージの役割
-
-| パッケージ        | 責務                                          |
-|:-------------|:--------------------------------------------|
-| `controller` | HTTP リクエストを受け取り、Service を呼び出し、テンプレートにデータを渡す |
-| `service`    | ビジネスルールの適用、トランザクション境界の管理、Entity と DTO の変換   |
-| `repository` | Spring Data JPA による DB アクセス。カスタムクエリメソッドを定義  |
-| `entity`     | JPA エンティティ。DB テーブルとの O/R マッピングを担当           |
-| `dto`        | フォーム入力のバインディングとバリデーション制約を定義                 |
-| `enums`      | 用具の状態(在庫や清掃中など)を管理                          |
 
 ## 主要クラスの説明
 
@@ -168,8 +151,19 @@ CREATE TABLE stocks (
 
 ### Entity 層
 
-- **Equipment** — 用具テーブル (`equipment`) にマッピング。管理番号・名称・カテゴリ・ステータス・説明を持ち、`RentalRecord` と `@OneToMany` で関連付けられる。作成・更新日時は Hibernate が自動管理する
-- **RentalRecord** — 貸出記録テーブル (`rental_record`) にマッピング。`Equipment` と `@ManyToOne` で関連付けられ、利用者名・連絡先・貸出日・返却予定日・実返却日を管理する
+- **Category (用具種目)**
+  - 用具種目テーブル (`categories`) にマッピング。貸与対象の13品目情報を管理する。
+- **Location (保管場所)**
+  - 保管場所テーブル (`locations`) にマッピング。商品の保管場所情報を管理する。
+- **Manufacture (製造メーカー)**
+  - メーカーテーブル (`manufactures`) にマッピング。製造メーカー情報を管理する。
+- **Product (製品)**
+    - 製品テーブル (`products`) にマッピング。製品ごとの情報を管理する。
+- **Status (商品状態)**
+    - 商品状態テーブル (`statuses`) にマッピング。商品状態 (在庫、清掃中など)の情報を管理する。
+    - 商品状態は頻繁に変わることを鑑みて enum型 (`EquipmentStatus`)で管理している。
+- **Stock (商品)**
+    - 保有商品テーブル (`stocks`) にマッピング。会社が保有する商品の情報を管理する。
 
 ### DTO 層
 
@@ -179,73 +173,6 @@ CREATE TABLE stocks (
 ### Enum
 
 - **EquipmentStatus** — 在庫 (`AVAILABLE`) / 貸出中 (`RENTED`) / 洗浄中 (`CLEANING`) / 修理中 (`REPAIR`)の 4 状態
-
-## リクエスト処理フロー
-
-用具の新規登録を例に、リクエストが Controller に届いてから DB に保存されるまでの流れを示します。
-
-```
-[ブラウザ] GET /equipment/new
-    │
-    ▼
-┌─────────────────────────────────────────────────┐
-│  EquipmentController.newForm()                  │
-│  ・空の EquipmentDto を生成 (status = AVAILABLE) │
-│  ・カテゴリ / ステータスの選択肢を Model に追加  │
-│  ・"equipment/form" テンプレートを返却           │
-└─────────────────────────────────────────────────┘
-    │
-    ▼
-[ブラウザ] フォームに入力 → POST /equipment/save
-    │
-    ▼
-┌─────────────────────────────────────────────────┐
-│  EquipmentController.save()                     │
-│  ・@Valid で EquipmentDto をバリデーション        │
-│  ・BindingResult にエラーがあればフォームを再表示 │
-│  ・エラーなし → EquipmentService.save() を呼出   │
-└─────────────────────────────────────────────────┘
-    │
-    ▼
-┌─────────────────────────────────────────────────┐
-│  EquipmentService.save()                        │
-│  ・@Transactional でトランザクション開始          │
-│  ・id が null → 新規 Equipment エンティティ生成  │
-│  ・id が非 null → 既存エンティティを取得して更新  │
-│  ・DTO のフィールドをエンティティにマッピング     │
-│  ・EquipmentRepository.save() を呼出             │
-└─────────────────────────────────────────────────┘
-    │
-    ▼
-┌─────────────────────────────────────────────────┐
-│  EquipmentRepository.save()                     │
-│  ・Spring Data JPA が Hibernate に委譲           │
-│  ・INSERT / UPDATE SQL を H2 に発行              │
-│  ・@CreationTimestamp / @UpdateTimestamp を自動設定│
-│  ・トランザクション コミット                      │
-└─────────────────────────────────────────────────┘
-    │
-    ▼
-[ブラウザ] リダイレクト → GET /equipment (一覧画面)
-           フラッシュメッセージ: "用具を保存しました"
-```
-
-### 貸出登録時の追加ロジック
-
-貸出 (`RentalService.rent()`) では、上記に加えて以下のビジネスルールが適用されます。
-
-1. 指定された用具のステータスが `AVAILABLE` でなければ `IllegalStateException` をスロー
-2. `RentalRecord` エンティティを生成し、用具との関連を設定
-3. 用具のステータスを `RENTED` に変更
-4. `RentalRecordRepository.save()` で永続化
-
-### 返却時の追加ロジック
-
-返却 (`RentalService.returnEquipment()`) では以下が実行されます。
-
-1. 対象の `RentalRecord` が既に返却済み (`actualReturnDate != null`) であれば `IllegalStateException` をスロー
-2. `actualReturnDate` に当日日付をセット
-3. 用具のステータスを `CLEANING` に変更
 
 ## エンドポイント一覧
 

@@ -13,6 +13,10 @@
 <details>
 <summary><b>feat: 機能追加</b> (クリックで展開)</summary>
 
+### 2026-02-14: 新しいDB設計に合わせたEntityの実装完了
+
+- Done: 全Entityの実装完了
+
 ### 2026-02-13: 新しいDB設計に合わせたEntityを定義
 
 - wip: Entityを定義中。次回は在庫テーブルに合わせたEntityを実装予定
