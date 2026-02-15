@@ -1,6 +1,6 @@
 -- 初期データ: メーカーデータ
 INSERT INTO manufactures (name, created_at, updated_at) VALUES
-('パラマウント', NOW(), NOW()),
+('パラマウントベッド', NOW(), NOW()),
 ('シーホネンス', NOW(), NOW()),
 ('ランダル', NOW(), NOW()),
 ('フランスベッド', NOW(), NOW()),
@@ -56,24 +56,28 @@ INSERT INTO statuses (status, display_name, created_at, updated_at) VALUES
 -- 初期データ: 製品データ
 INSERT INTO products (
     name,
+    tais_code,
     categories_id,
     manufactures_id,
     created_at,
     updated_at
 ) VALUES (
-    'ハッピーⅡ',
+    'ハッピーⅡ NB',
+    '00110-000112',
     (SELECT id FROM categories WHERE name = '歩行器'),
     (SELECT id FROM manufactures WHERE name = '竹虎'),
     NOW(),
     NOW()
 ), (
     '楽匠Z 3モーター',
+    '00170-000785',
     (SELECT id FROM categories WHERE name = '特殊寝台'),
-    (SELECT id FROM manufactures WHERE name = 'パラマウント'),
+    (SELECT id FROM manufactures WHERE name = 'パラマウントベッド'),
     NOW(),
     NOW()
 ), (
-    'ベスポジZ',
+    'ベスポジZ レギュラー',
+    '00254-000410',
     (SELECT id FROM categories WHERE name = '手すり'),
     (SELECT id FROM manufactures WHERE name = 'ホクメイ'),
     NOW(),
@@ -92,7 +96,7 @@ INSERT INTO stocks (
     updated_at
 ) VALUES (
     'WK-0001',
-    (SELECT id FROM products WHERE name = 'ハッピーⅡ'),
+    (SELECT id FROM products WHERE name = 'ハッピーⅡ NB'),
     (SELECT id FROM locations WHERE name = '本社'),
     (SELECT id FROM statuses WHERE status = 'AVAILABLE'),
     '2025-02-02',
@@ -110,7 +114,7 @@ INSERT INTO stocks (
     NOW()
 ), (
     'HR-0001',
-    (SELECT id FROM products WHERE name = 'ベスポジZ'),
+    (SELECT id FROM products WHERE name = 'ベスポジZ レギュラー'),
     (SELECT id FROM locations WHERE name = '第一倉庫'),
     (SELECT id FROM statuses WHERE status = 'REPAIR'),
     '2025-02-02',

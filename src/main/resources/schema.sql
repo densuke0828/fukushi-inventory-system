@@ -1,12 +1,12 @@
 --  -- 一旦リセット
---  DROP TABLE IF EXISTS stocks;
---  DROP TABLE IF EXISTS products;
---  DROP TABLE IF EXISTS statuses;
---  DROP TABLE IF EXISTS locations;
---  DROP TABLE IF EXISTS categories;
---  DROP TABLE IF EXISTS manufactures;
---  DROP TABLE IF EXISTS rental_record;
---  DROP TABLE IF EXISTS equipment;
+DROP TABLE IF EXISTS stocks;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS statuses;
+DROP TABLE IF EXISTS locations;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS manufactures;
+DROP TABLE IF EXISTS rental_record;
+DROP TABLE IF EXISTS equipment;
 
 -- メーカーテーブル
 CREATE TABLE manufactures (
@@ -45,7 +45,7 @@ CREATE TABLE statuses (
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    model_number VARCHAR(50) NOT NULL,
+    tais_code VARCHAR(20) NOT NULL,
     categories_id INT NOT NULL REFERENCES categories(id),
     manufactures_id INT NOT NULL REFERENCES manufactures(id),
     created_at TIMESTAMP DEFAULT NOW(),

@@ -10,15 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(
-    name = "products",
-    uniqueConstraints = {
-        @UniqueConstraint(
-            name = "uk_products_manufacturer_model",
-            columnNames = {"model_number", "manufactures_id"}
-        )
-    }
-)
+@Table(name = "products")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -31,8 +23,8 @@ public class Product {
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Column(name = "model_number", nullable = false, length = 50)
-    private String modelNumber;
+    @Column(name = "tais_code", nullable = false, length = 20)
+    private String taisCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categories_id", nullable = false)

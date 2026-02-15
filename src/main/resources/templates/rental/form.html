@@ -1,62 +1,62 @@
-<!DOCTYPE html>
-<html lang="ja"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.uk/thymeleaf/layout"
-      layout:decorate="~{layout/layout}"
->
-<head>
-    <title>新規貸出</title>
-</head>
-<body>
-<section layout:fragment="content">
-    <h2 style="margin-bottom:1rem;">新規貸出登録</h2>
+<!--<!DOCTYPE html>-->
+<!--<html lang="ja"-->
+<!--      xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:layout="http://www.ultraq.net.uk/thymeleaf/layout"-->
+<!--      layout:decorate="~{layout/layout}"-->
+<!--&gt;-->
+<!--<head>-->
+<!--    <title>新規貸出</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<section layout:fragment="content">-->
+<!--    <h2 style="margin-bottom:1rem;">新規貸出登録</h2>-->
 
-    <form th:action="@{/rental/save}" th:object="${rentalDto}" method="post" style="max-width:600px;">
+<!--    <form th:action="@{/rental/save}" th:object="${rentalDto}" method="post" style="max-width:600px;">-->
 
-        <div class="form-group">
-            <label>用具</label>
-            <select th:field="*{equipmentId}">
-                <option value="">-- 選択 --</option>
-                <option th:each="availableEquipment : ${availableEquipments}"
-                        th:value="${availableEquipment.id}"
-                        th:text="${availableEquipment.equipmentCode + ' / ' + availableEquipment.name}"></option>
-            </select>
-            <div class="error" th:if="${#fields.hasErrors('equipmentId')}" th:errors="*{equipmentId}"></div>
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label>用具</label>-->
+<!--            <select th:field="*{equipmentId}">-->
+<!--                <option value="">&#45;&#45; 選択 &#45;&#45;</option>-->
+<!--                <option th:each="availableEquipment : ${availableEquipments}"-->
+<!--                        th:value="${availableEquipment.id}"-->
+<!--                        th:text="${availableEquipment.equipmentCode + ' / ' + availableEquipment.name}"></option>-->
+<!--            </select>-->
+<!--            <div class="error" th:if="${#fields.hasErrors('equipmentId')}" th:errors="*{equipmentId}"></div>-->
+<!--        </div>-->
 
-        <div class="form-group">
-            <label>利用者名</label>
-            <input type="text" th:field="*{renterName}" placeholder="例: 山田 太郎">
-            <div class="error" th:if="${#fields.hasErrors('renterName')}" th:errors="*{renterName}"></div>
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label>利用者名</label>-->
+<!--            <input type="text" th:field="*{renterName}" placeholder="例: 山田 太郎">-->
+<!--            <div class="error" th:if="${#fields.hasErrors('renterName')}" th:errors="*{renterName}"></div>-->
+<!--        </div>-->
 
-        <div class="form-group">
-            <label>連絡先</label>
-            <input type="text" th:field="*{renterContact}" placeholder="例: 090-1234-5678">
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label>連絡先</label>-->
+<!--            <input type="text" th:field="*{renterContact}" placeholder="例: 090-1234-5678">-->
+<!--        </div>-->
 
-        <div class="form-group">
-            <label>貸出日</label>
-            <input type="date" th:field="*{rentalDate}">
-            <div class="error" th:if="${#fields.hasErrors('rentalDate')}" th:errors="*{rentalDate}"></div>
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label>貸出日</label>-->
+<!--            <input type="date" th:field="*{rentalDate}">-->
+<!--            <div class="error" th:if="${#fields.hasErrors('rentalDate')}" th:errors="*{rentalDate}"></div>-->
+<!--        </div>-->
 
-        <div class="form-group">
-            <label>返却予定日</label>
-            <input type="date" th:field="*{expectedReturnDate}">
-            <div class="error" th:if="${#fields.hasErrors('expectedReturnDate')}" th:errors="*{expectedReturnDate}"></div>
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label>返却予定日</label>-->
+<!--            <input type="date" th:field="*{expectedReturnDate}">-->
+<!--            <div class="error" th:if="${#fields.hasErrors('expectedReturnDate')}" th:errors="*{expectedReturnDate}"></div>-->
+<!--        </div>-->
 
-        <div class="form-group">
-            <label>備考</label>
-            <textarea th:field="*{notes}" placeholder="備考を入力"></textarea>
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label>備考</label>-->
+<!--            <textarea th:field="*{notes}" placeholder="備考を入力"></textarea>-->
+<!--        </div>-->
 
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">貸出登録</button>
-            <a th:href="@{/rental}" class="btn" style="background:var(--gray-200);">キャンセル</a>
-        </div>
-    </form>
-</section>
-</body>
-</html>
+<!--        <div class="form-actions">-->
+<!--            <button type="submit" class="btn btn-primary">貸出登録</button>-->
+<!--            <a th:href="@{/rental}" class="btn" style="background:var(&#45;&#45;gray-200);">キャンセル</a>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</section>-->
+<!--</body>-->
+<!--</html>-->
