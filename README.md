@@ -34,14 +34,11 @@ src/main/java/com/example/fukushi/
 ├── FukushiInventoryApplication.java   # Spring Boot エントリーポイント
 ├── controller/                        # HTTP リクエストの受付・画面遷移制御
 │   ├── HomeController.java
-│   ├── EquipmentController.java
-│   └── RentalController.java
+│   └── StockController.java
 ├── service/                           # ビジネスロジック・トランザクション管理
-│   ├── EquipmentService.java
-│   └── RentalService.java
+│   └── StockService.java
 ├── repository/                        # データアクセス層 (Spring Data JPA)
-│   ├── EquipmentRepository.java
-│   └── RentalRecordRepository.java
+│   └── StockRepository.java
 ├── entity/                            # JPA エンティティ (DB テーブルマッピング)
 │   ├── Category.java
 │   ├── Location.java
@@ -50,12 +47,12 @@ src/main/java/com/example/fukushi/
 │   ├── Status.java
 │   └── Stock.java
 ├── dto/                               # データ転送オブジェクト (入力バリデーション)
-│   ├── EquipmentDto.java
-│   └── RentalRecordDto.java
+│   └── StockDto.java
 ├── enums/                             # 列挙型 (カテゴリ・ステータス定義)
-│   ├── EquipmentCategory.java
-│   └── EquipmentStatus.java
+│   └── EquipmentCategory.java
 └── config/                            # 設定クラス (拡張用)
+    ├── JpaConfig.java     
+    └── ThymeleafConfig.java                      
 
 src/main/resources/
 ├── application.yml                    # アプリケーション設定
@@ -135,19 +132,16 @@ CREATE TABLE stocks (
 
 ### Controller 層
 
-- **HomeController** — ダッシュボード画面 (`GET /`) を提供。用具の総数・ステータス別件数・貸出中件数を集計して表示する
-- **EquipmentController** — 用具の CRUD 操作を担当。一覧表示（カテゴリ・ステータスでのフィルタリング対応）、新規登録・編集フォーム表示、保存、削除のエンドポイントを持つ
-- **RentalController** — 貸出管理を担当。貸出一覧の表示、新規貸出登録フォーム、貸出保存、返却処理のエンドポイントを持つ
+- **HomeController** — ダッシュボード画面を提供。用具の総数・ステータス別件数などを集計して表示する
+- **StockController** — 用具の CRUD 操作を担当。一覧表示（カテゴリ・ステータスでのフィルタリング対応）、新規登録・編集フォーム表示、保存、削除のエンドポイントを持つ
 
 ### Service 層
 
-- **EquipmentService** — 用具の検索・保存・削除・ステータス更新を行う。`@Transactional` で読み取り専用と書き込みの境界を分離し、DTO からエンティティへの変換ロジックを集約する
-- **RentalService** — 貸出のビジネスロジックを管理する。貸出時にはステータスが「在庫」であることを検証し `RENTED` へ変更、返却時には `actualReturnDate` をセットしステータスを `CLEANING` へ変更する
+- **StockService** — Controller から用具の検索・保存・削除・ステータス更新を受け付ける。また、Entity → DTO 変換メソッドの呼び出しを記述する
 
 ### Repository 層
 
-- **EquipmentRepository** — `JpaRepository<Equipment, Long>` を継承。管理番号による検索、カテゴリ・ステータスによるフィルタリング用のクエリメソッドを定義
-- **RentalRecordRepository** — `JpaRepository<RentalRecord, Long>` を継承。用具 ID による検索、未返却レコードの取得、利用者名による部分一致検索のクエリメソッドを定義
+- **StockRepository** — `JpaRepository<hoge, huga>` を継承。管理番号による検索、カテゴリ・ステータスによるフィルタリング用のクエリメソッドを定義
 
 ### Entity 層
 
@@ -167,8 +161,7 @@ CREATE TABLE stocks (
 
 ### DTO 層
 
-- **EquipmentDto** — 用具の入力フォームに対応。`@NotBlank`, `@Size`, `@NotNull` で入力値を検証する
-- **RentalRecordDto** — 貸出フォームに対応。日付フィールドは `@DateTimeFormat(pattern = "yyyy-MM-dd")` でバインドされる
+- **StockDto** — 用具の一覧表示に対応
 
 ### Enum
 
@@ -179,7 +172,7 @@ CREATE TABLE stocks (
 | メソッド | パス                       | 機能            |
 |:-----|:-------------------------|:--------------|
 | GET  | `/`                      | ダッシュボード       |
-| GET  | `/equipment`             | 用具一覧 (フィルタ対応) |
+| GET  | `/stock`                 | 用具一覧 (フィルタ対応) |
 | GET  | `/equipment/new`         | 用具登録フォーム      |
 | GET  | `/equipment/{id}/edit`   | 用具編集フォーム      |
 | POST | `/equipment/save`        | 用具の保存         |
