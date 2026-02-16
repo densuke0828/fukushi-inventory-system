@@ -1,5 +1,6 @@
 package com.example.fukushi.service;
 
+import com.example.fukushi.entity.Category;
 import com.example.fukushi.entity.Stock;
 import com.example.fukushi.enums.EquipmentStatus;
 import com.example.fukushi.repository.StockRepository;
@@ -15,11 +16,14 @@ public class StockService {
     private final StockRepository stockRepository;
 
     public List<Stock> findAll() {
-        List<Stock> stocks = stockRepository.findAll();
-        return stocks;
+        return stockRepository.findAll();
     }
 
-    public List<Stock> getStockByStatus(EquipmentStatus status) {
+    public List<Stock> findByStatus_Status(EquipmentStatus status) {
         return stockRepository.findByStatus_Status(status);
     }
+
+//    public List<Stock> findByCategoryAndStatus(Category category, EquipmentStatus status) {
+//        return stockRepository.findByCategoryAndStatus(category, status);
+//    }
 }

@@ -10,20 +10,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
-
     private final StockService stockService;
 
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("stocks", stockService.findAll().size());
         model.addAttribute("availableCount",
-                stockService.getStockByStatus(EquipmentStatus.AVAILABLE).size());
+                stockService.findByStatus_Status(EquipmentStatus.AVAILABLE).size());
         model.addAttribute("rentedCount",
-                stockService.getStockByStatus(EquipmentStatus.RENTED).size());
+                stockService.findByStatus_Status(EquipmentStatus.RENTED).size());
         model.addAttribute("cleaningCount",
-                stockService.getStockByStatus(EquipmentStatus.CLEANING).size());
+                stockService.findByStatus_Status(EquipmentStatus.CLEANING).size());
         model.addAttribute("repairCount",
-                stockService.getStockByStatus(EquipmentStatus.REPAIR).size());
+                stockService.findByStatus_Status(EquipmentStatus.REPAIR).size());
         return "index";
     }
 }
