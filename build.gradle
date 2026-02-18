@@ -35,6 +35,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     // MyBatis
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    // BootStrap
+    implementation 'org.webjars:bootstrap:5.3.3'
+    // WebJars-locator-core
+    implementation 'org.webjars:webjars-locator-core'
 
     // PostgreSQL
     runtimeOnly 'org.postgresql:postgresql'
