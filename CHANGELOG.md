@@ -43,6 +43,10 @@
 <details>
 <summary><b>refactor: リファクタリング</b> (クリックで展開)</summary>
 
+### 2026-02-19: CSS → BootStrapへの移行 (ダッシュボード)
+
+- Done: ダッシュボードのCSS → BootStrapへの移行完了
+
 ### 2026-02-07: MyBatisの導入
 
 - より複雑なSQL文に対応するためにMyBatisを導入

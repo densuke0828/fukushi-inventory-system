@@ -14,7 +14,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("stocks", stockService.findAll().size());
+        model.addAttribute("stockCount", stockService.findAll().size());
         model.addAttribute("availableCount",
                 stockService.findByStatus_Status(EquipmentStatus.AVAILABLE).size());
         model.addAttribute("rentedCount",
