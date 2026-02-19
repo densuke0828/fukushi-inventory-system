@@ -43,6 +43,10 @@
 <details>
 <summary><b>refactor: リファクタリング</b> (クリックで展開)</summary>
 
+### 2026-02-20: CSS → BootStrapへの移行 (用具一覧画面)
+
+- Done: 用具一覧画面のCSS → BootStrapへの移行完了
+
 ### 2026-02-19: CSS → BootStrapへの移行 (ダッシュボード)
 
 - Done: ダッシュボードのCSS → BootStrapへの移行完了

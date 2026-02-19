@@ -10,7 +10,7 @@
 
 ## 開発状況
 
-現在の詳細な進捗状況やタスクの優先順位は、以下のProjectボードで管理してしています
+現在の詳細な進捗状況やタスクの優先順位は、以下のProjectボードで管理しています
 - [開発ロードマップ (GitHub Projects)](https://github.com/users/densuke0828/projects/1)
 
 ## 技術スタック

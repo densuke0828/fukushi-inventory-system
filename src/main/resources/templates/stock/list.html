@@ -9,7 +9,7 @@
 </head>
 <body>
 <section layout:fragment="content">
-    <div class="new-stock">
+    <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
         <h2>用具一覧</h2>
         <a th:href="@{/stock/new}" class="btn btn-primary">保有商品新規登録</a>
     </div>
@@ -34,9 +34,8 @@
 <!--        </div>-->
 <!--        <button type="submit" class="btn btn-primary btn-sm">絞り込み</button>-->
 <!--    </form>-->
-
-    <table>
-        <thead>
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
             <tr>
                 <th>管理番号</th>
                 <th>用具名</th>
@@ -48,32 +47,33 @@
             </tr>
         </thead>
         <tbody>
-        <tr th:each="stock : ${stocks}">
-            <td th:text="${stock.serialCode}"></td>
-            <td th:text="${stock.productName}"></td>
-            <td th:text="${stock.manufactureName}"></td>
-            <td th:text="${stock.status}"></td>
-            <td th:text="${stock.location}"></td>
-            <td th:text="${stock.purchasedAt}"></td>
-            <td th:text="${stock.notes}"></td>
-<!--            <td>-->
-<!--                <span class="badge"-->
-<!--                      th:classappend="${stock.status.name() == 'AVAILABLE'} ? 'badge-available' : (${stock.status.name() == 'RENTED'} ? 'badge-rented' : 'badge-cleaning')"-->
-<!--                      th:text="${stock.status.displayName}">-->
-
-<!--                </span>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <a th:href="@{'/stock/' + ${stock.id} + '/edit'}" class="btn btn-sm btn-primary">編集</a>-->
-<!--                <form th:action="@{'/stock/' + ${stock.id} + '/delete'}" method="post" style="display:inline;"-->
-<!--                      onsubmit="return confirm('削除してよろしいですか？')">-->
-<!--                    <button type="submit" class="btn btn-sm btn-danger">削除</button>-->
-<!--                </form>-->
-<!--            </td>-->
-        </tr>
-<!--        <tr th:if="${#lists.isEmpty(equipments)}">-->
-<!--            <td colspan="6" style="text-align:center;color:#999;">データがありません</td>-->
-<!--        </tr>-->
+            <tr th:each="stock : ${stocks}">
+                <td th:text="${stock.serialCode}"></td>
+                <td th:text="${stock.productName}"></td>
+                <td th:text="${stock.manufactureName}"></td>
+                <td>
+                    <span class="badge rounded-pill"
+                          th:classappend=
+                                  "${stock.status == '在庫' ? 'text-bg-success' :
+                                  (stock.status == '貸出中' ? 'text-bg-warning' :
+                                  (stock.status == '清掃中' ? 'text-bg-info' : 'text-bg-danger'))}"
+                          th:text="${stock.status}">
+                    </span>
+                </td>
+                <td th:text="${stock.location}"></td>
+                <td th:text="${stock.purchasedAt}"></td>
+                <td th:text="${stock.notes}"></td>
+    <!--            <td>-->
+    <!--                <a th:href="@{'/stock/' + ${stock.id} + '/edit'}" class="btn btn-sm btn-primary">編集</a>-->
+    <!--                <form th:action="@{'/stock/' + ${stock.id} + '/delete'}" method="post" style="display:inline;"-->
+    <!--                      onsubmit="return confirm('削除してよろしいですか？')">-->
+    <!--                    <button type="submit" class="btn btn-sm btn-danger">削除</button>-->
+    <!--                </form>-->
+    <!--            </td>-->
+            </tr>
+            <tr th:if="${#lists.isEmpty(stocks)}">
+                <td colspan="7" class="text-center text-muted">データがありません</td>
+            </tr>
         </tbody>
     </table>
 </section>
