@@ -1,14 +1,12 @@
 package com.example.fukushi.service;
 
-import com.example.fukushi.dto.StockListDto;
-import com.example.fukushi.entity.Category;
+import com.example.fukushi.dto.StockDto;
 import com.example.fukushi.entity.Stock;
 import com.example.fukushi.enums.EquipmentStatus;
 import com.example.fukushi.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -16,10 +14,10 @@ import java.util.List;
 public class StockService {
     private final StockRepository stockRepository;
 
-    public List<StockListDto> findAll() {
+    public List<StockDto> findAll() {
         return stockRepository.findAll()
                 .stream()
-                .map(StockListDto::fromEntity)
+                .map(StockDto::fromEntity)
                 .toList();
     }
 

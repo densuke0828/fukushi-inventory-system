@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StockListDto {
+public class StockDto {
     private Long id;
     private String serialCode;
     private String productName;
@@ -23,8 +23,8 @@ public class StockListDto {
     private LocalDate purchasedAt;
     private String notes;
 
-    public static StockListDto fromEntity(Stock stock) {
-        return StockListDto.builder()
+    public static StockDto fromEntity(Stock stock) {
+        return StockDto.builder()
                 .id(stock.getId())
                 .serialCode(stock.getSerialCode())
                 .productName(stock.getProduct().getName())

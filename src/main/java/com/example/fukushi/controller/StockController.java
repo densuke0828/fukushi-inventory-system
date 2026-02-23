@@ -1,5 +1,9 @@
 package com.example.fukushi.controller;
 
+import com.example.fukushi.form.StockForm;
+import com.example.fukushi.service.LocationService;
+import com.example.fukushi.service.ProductService;
+import com.example.fukushi.service.StatusService;
 import com.example.fukushi.service.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,6 +16,12 @@ import org.springframework.web.bind.annotation.*;
 public class StockController {
 
     private final StockService stockService;
+    private final StatusService statusService;
+    private final LocationService locationService;
+    private final ProductService productService;
+    
+
+
 //    @RequestParam(required = false) Category category,
 //    @RequestParam(required = false) EquipmentStatus status,
     @GetMapping
@@ -34,15 +44,14 @@ public class StockController {
         return "stock/list";
     }
 
-//    @GetMapping("/new")
-//    public String newForm(Model model) {
-//        model.addAttribute("equipmentDto", EquipmentDto.builder()
-//                .status(EquipmentStatus.AVAILABLE)
-//                .build());
-//        model.addAttribute("categories", EquipmentCategory.values());
-//        model.addAttribute("statuses", EquipmentStatus.values());
-//        return "equipment/form";
-//    }
+    @GetMapping("/new")
+    public String create(Model model) {
+        model.addAttribute("stockForm", StockForm.builder().build());
+        model.addAttribute("products", productService.findAll());
+        model.addAttribute("statuses", statusService.findAll());
+        model.addAttribute("locations", locationService.findAll());
+        return "stock/form";
+    }
 //
 //    @GetMapping("/{id}/edit")
 //    public String editForm(@PathVariable Long id, Model model) {
