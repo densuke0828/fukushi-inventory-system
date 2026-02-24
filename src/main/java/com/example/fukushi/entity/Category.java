@@ -23,6 +23,9 @@ public class Category {
     @Column(name = "name", nullable = false, unique = true, length = 30)
     private String name;
 
+    @Column(name = "prefix", nullable = false, unique = true, length = 10)
+    private String prefix;
+
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @Builder
 public class StockForm {
     private Long id;
-    private String serialCode;
     private Long productId;
     private Long locationId;
     private Long statusId;

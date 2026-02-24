@@ -20,6 +20,7 @@ CREATE TABLE manufactures (
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
     name VARCHAR(30) UNIQUE NOT NULL,
+    prefix VARCHAR(10) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );

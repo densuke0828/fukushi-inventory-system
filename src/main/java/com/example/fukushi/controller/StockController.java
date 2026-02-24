@@ -1,14 +1,18 @@
 package com.example.fukushi.controller;
 
+import com.example.fukushi.enums.EquipmentStatus;
 import com.example.fukushi.form.StockForm;
 import com.example.fukushi.service.LocationService;
 import com.example.fukushi.service.ProductService;
 import com.example.fukushi.service.StatusService;
 import com.example.fukushi.service.StockService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/stock")
@@ -61,20 +65,21 @@ public class StockController {
 //        return "equipment/form";
 //    }
 //
-//    @PostMapping("/save")
-//    public String save(@Valid @ModelAttribute EquipmentDto equipmentDto,
+    @PostMapping("/save")
+    public String save(@Valid @ModelAttribute StockForm form,
 //                       BindingResult result,
-//                       Model model,
-//                       RedirectAttributes redirectAttributes) {
+                       Model model,
+                       RedirectAttributes redirectAttributes
+    ) {
 //        if (result.hasErrors()) {
 //            model.addAttribute("categories", EquipmentCategory.values());
 //            model.addAttribute("statuses", EquipmentStatus.values());
 //            return "equipment/form";
 //        }
-//        equipmentService.save(equipmentDto);
-//        redirectAttributes.addFlashAttribute("message", "用具を保存しました");
-//        return "redirect:/equipment";
-//    }
+        stockService.save(form);
+        redirectAttributes.addFlashAttribute("message", "用具を保存しました");
+        return "redirect:/stock";
+    }
 //
 //    @PostMapping("/{id}/delete")
 //    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {

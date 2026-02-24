@@ -12,5 +12,5 @@ import java.util.List;
 public interface StockRepository extends JpaRepository<Stock, Long> {
     List<Stock> findByStatus_Status(EquipmentStatus status);
 
-//    List<Stock> findByCategoryAndStatus(Category category, EquipmentStatus status);
+    List<Stock> findBySerialCodeStartingWith(String prefix);
 }

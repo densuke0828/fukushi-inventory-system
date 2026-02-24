@@ -16,12 +16,6 @@
         <input type="hidden" th:field="*{id}">
 
         <div class="mb-3">
-            <label class="form-label">管理番号</label>
-            <input type="text" class="form-control" th:field="*{serialCode}" placeholder="例: WC-001">
-<!--            <div class="error" th:if="${#fields.hasErrors('equipmentCode')}" th:errors="*{equipmentCode}"></div>-->
-        </div>
-
-        <div class="mb-3">
             <label class="form-label">製品名</label>
             <select class="form-select" th:field="*{productId}">
                 <option value="">-- 選択してください --</option>

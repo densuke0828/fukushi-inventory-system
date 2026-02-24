@@ -24,20 +24,20 @@ INSERT INTO manufactures (name, created_at, updated_at) VALUES
 ('WHILL', NOW(), NOW());
 
 -- 初期データ: 用具種目データ
-INSERT INTO categories (name, created_at, updated_at) VALUES
-('特殊寝台', NOW(), NOW()),
-('特殊寝台付属品', NOW(), NOW()),
-('床ずれ防止用具', NOW(), NOW()),
-('体位変換器', NOW(), NOW()),
-('手すり', NOW(), NOW()),
-('スロープ', NOW(), NOW()),
-('車いす', NOW(), NOW()),
-('車いす付属品', NOW(), NOW()),
-('歩行器', NOW(), NOW()),
-('歩行補助杖', NOW(), NOW()),
-('移動用リフト', NOW(), NOW()),
-('徘徊感知機器', NOW(), NOW()),
-('自動排泄処理装置', NOW(), NOW());
+INSERT INTO categories (name, prefix, created_at, updated_at) VALUES
+('特殊寝台', 'BD', NOW(), NOW()),
+('特殊寝台付属品', 'BDA', NOW(), NOW()),
+('床ずれ防止用具', 'PR', NOW(), NOW()),
+('体位変換器', 'PS', NOW(), NOW()),
+('手すり', 'HR', NOW(), NOW()),
+('スロープ', 'SL', NOW(), NOW()),
+('車いす', 'WC', NOW(), NOW()),
+('車いす付属品', 'WCA', NOW(), NOW()),
+('歩行器', 'WK', NOW(), NOW()),
+('歩行補助杖', 'CN', NOW(), NOW()),
+('移動用リフト', 'LF', NOW(), NOW()),
+('徘徊感知機器', 'WD', NOW(), NOW()),
+('自動排泄処理装置', 'AE', NOW(), NOW());
 
 -- 初期データ: 保管場所データ
 INSERT INTO locations (name, created_at, updated_at) VALUES
