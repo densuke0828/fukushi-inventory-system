@@ -31,6 +31,11 @@ public class StockService {
                 .toList();
     }
 
+    public StockForm findById(Long id) {
+        Stock stock = stockRepository.findById(id).orElseThrow();
+        return StockForm.fromEntity(stock);
+    }
+
     public List<Stock> findByStatus_Status(EquipmentStatus status) {
         return stockRepository.findByStatus_Status(status);
     }
@@ -39,19 +44,23 @@ public class StockService {
         Product product = productRepository.findById(form.getProductId()).orElseThrow();
         Location location = locationRepository.findById(form.getLocationId()).orElseThrow();
         Status status = statusRepository.findById(form.getStatusId()).orElseThrow();
+        String serialCode;
 
-        String prefix = product.getCategory().getPrefix();
-
-        List<Stock> existing = stockRepository.findBySerialCodeStartingWith(prefix);
-
-        int maxNumber = existing.stream()
-                .map(s -> Integer.parseInt(s.getSerialCode().substring(prefix.length() + 1)))
-                .max(Integer::compareTo)
-                .orElse(0);
-
-        String serialCode = String.format("%s-%04d", prefix, maxNumber +1);
+        if (form.getId() == null) {
+            String prefix = product.getCategory().getPrefix();
+            List<Stock> existing = stockRepository.findBySerialCodeStartingWith(prefix);
+            int maxNumber = existing.stream()
+                    .map(s -> Integer.parseInt(s.getSerialCode().substring(prefix.length() + 1)))
+                    .max(Integer::compareTo)
+                    .orElse(0);
+            serialCode = String.format("%s-%04d", prefix, maxNumber +1);
+        } else {
+            Stock existing = stockRepository.findById(form.getId()).orElseThrow();
+            serialCode = existing.getSerialCode();
+        }
 
         Stock stock = Stock.builder()
+                .id(form.getId())
                 .serialCode(serialCode)
                 .product(product)
                 .location(location)
@@ -59,7 +68,11 @@ public class StockService {
                 .purchasedAt(form.getPurchasedAt())
                 .notes(form.getNotes())
                 .build();
-        stockRepository.save(stock);
 
+        stockRepository.save(stock);
+    }
+
+    public void delete(Long id) {
+        stockRepository.deleteById(id);
     }
 }

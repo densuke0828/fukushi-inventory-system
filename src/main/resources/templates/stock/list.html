@@ -44,6 +44,7 @@
                 <th>場所</th>
                 <th>購入日</th>
                 <th>備考</th>
+                <th>操作</th>
             </tr>
         </thead>
         <tbody>
@@ -63,16 +64,17 @@
                 <td th:text="${stock.location}"></td>
                 <td th:text="${stock.purchasedAt}"></td>
                 <td th:text="${stock.notes}"></td>
-    <!--            <td>-->
-    <!--                <a th:href="@{'/stock/' + ${stock.id} + '/edit'}" class="btn btn-sm btn-primary">編集</a>-->
-    <!--                <form th:action="@{'/stock/' + ${stock.id} + '/delete'}" method="post" style="display:inline;"-->
-    <!--                      onsubmit="return confirm('削除してよろしいですか？')">-->
-    <!--                    <button type="submit" class="btn btn-sm btn-danger">削除</button>-->
-    <!--                </form>-->
-    <!--            </td>-->
+                <td>
+                    <span class="d-flex gap-2">
+                        <a th:href="@{/stock/{id}/edit(id=${stock.id})}" class="btn btn-sm btn-primary">編集</a>
+                        <form th:action="@{/stock/{id}/delete(id=${stock.id})}" method="post">
+                            <button type="submit" class="btn btn-sm btn-danger">削除</button>
+                        </form>
+                    </span>
+                </td>
             </tr>
             <tr th:if="${#lists.isEmpty(stocks)}">
-                <td colspan="7" class="text-center text-muted">データがありません</td>
+                <td colspan="8" class="text-center text-muted">データがありません</td>
             </tr>
         </tbody>
     </table>

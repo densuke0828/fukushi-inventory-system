@@ -1,6 +1,5 @@
 package com.example.fukushi.controller;
 
-import com.example.fukushi.enums.EquipmentStatus;
 import com.example.fukushi.form.StockForm;
 import com.example.fukushi.service.LocationService;
 import com.example.fukushi.service.ProductService;
@@ -56,15 +55,16 @@ public class StockController {
         model.addAttribute("locations", locationService.findAll());
         return "stock/form";
     }
-//
-//    @GetMapping("/{id}/edit")
-//    public String editForm(@PathVariable Long id, Model model) {
-//        model.addAttribute("equipmentDto", equipmentService.toDto(equipmentService.findById(id)));
-//        model.addAttribute("categories", EquipmentCategory.values());
-//        model.addAttribute("statuses", EquipmentStatus.values());
-//        return "equipment/form";
-//    }
-//
+
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable Long id, Model model) {
+        model.addAttribute("stockForm", stockService.findById(id));
+        model.addAttribute("products", productService.findAll());
+        model.addAttribute("statuses", statusService.findAll());
+        model.addAttribute("locations", locationService.findAll());
+        return "stock/form";
+    }
+
     @PostMapping("/save")
     public String save(@Valid @ModelAttribute StockForm form,
 //                       BindingResult result,
@@ -80,11 +80,11 @@ public class StockController {
         redirectAttributes.addFlashAttribute("message", "用具を保存しました");
         return "redirect:/stock";
     }
-//
-//    @PostMapping("/{id}/delete")
-//    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-//        equipmentService.delete(id);
-//        redirectAttributes.addFlashAttribute("message", "用具を削除しました");
-//        return "redirect:/equipment";
-//    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        stockService.delete(id);
+        redirectAttributes.addFlashAttribute("message", "用具を削除しました");
+        return "redirect:/stock";
+    }
 }
