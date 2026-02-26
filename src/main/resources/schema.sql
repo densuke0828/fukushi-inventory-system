@@ -53,7 +53,7 @@ CREATE TABLE products (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- 保有商品テーブル
+-- 在庫商品テーブル
 CREATE TABLE stocks (
     id SERIAL PRIMARY KEY,
     serial_code VARCHAR(30) UNIQUE NOT NULL,

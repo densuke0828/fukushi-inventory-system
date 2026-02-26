@@ -1,5 +1,6 @@
 package com.example.fukushi.controller;
 
+import com.example.fukushi.enums.EquipmentStatus;
 import com.example.fukushi.form.StockForm;
 import com.example.fukushi.service.LocationService;
 import com.example.fukushi.service.ProductService;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -66,16 +68,17 @@ public class StockController {
     }
 
     @PostMapping("/save")
-    public String save(@Valid @ModelAttribute StockForm form,
-//                       BindingResult result,
+    public String save(@Validated @ModelAttribute StockForm form,
+                       BindingResult result,
                        Model model,
                        RedirectAttributes redirectAttributes
     ) {
-//        if (result.hasErrors()) {
-//            model.addAttribute("categories", EquipmentCategory.values());
-//            model.addAttribute("statuses", EquipmentStatus.values());
-//            return "equipment/form";
-//        }
+        if (result.hasErrors()) {
+            model.addAttribute("products", productService.findAll());
+            model.addAttribute("statuses", statusService.findAll());
+            model.addAttribute("locations", locationService.findAll());
+            return "stock/form";
+        }
         stockService.save(form);
         redirectAttributes.addFlashAttribute("message", "用具を保存しました");
         return "redirect:/stock";
