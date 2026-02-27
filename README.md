@@ -36,8 +36,14 @@ src/main/java/com/example/fukushi/
 │   ├── HomeController.java
 │   └── StockController.java
 ├── service/                           # ビジネスロジック・トランザクション管理
+│   ├── LocationService.java 
+│   ├── ProductService.java
+│   ├── StatusService.java                      
 │   └── StockService.java
 ├── repository/                        # データアクセス層 (Spring Data JPA)
+│   ├── LocationRepository.java
+│   ├── ProductRepository.java
+│   ├── StatusRepository.java
 │   └── StockRepository.java
 ├── entity/                            # JPA エンティティ (DB テーブルマッピング)
 │   ├── Category.java

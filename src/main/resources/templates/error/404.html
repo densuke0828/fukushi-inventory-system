@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.uk/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+>
+<head>
+    <title>404 - ページが見つかりません</title>
+</head>
+<body>
+    <section layout:fragment="content">
+        <div class="text-center mt-5">
+            <h2>404</h2>
+            <p>ページが見つかりませんでした。</p>
+            <a th:href="@{/stock}" class="btn btn-primary">一覧に戻る</a>
+        </div>
+    </section>
+</body>
+</html>
