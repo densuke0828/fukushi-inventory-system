@@ -6,6 +6,9 @@ import com.example.fukushi.entity.Product;
 import com.example.fukushi.entity.Status;
 import com.example.fukushi.entity.Stock;
 import com.example.fukushi.enums.EquipmentStatus;
+import com.example.fukushi.exception.LocationNotFoundException;
+import com.example.fukushi.exception.ProductNotFoundException;
+import com.example.fukushi.exception.StatusNotFoundException;
 import com.example.fukushi.exception.StockNotFoundException;
 import com.example.fukushi.form.StockForm;
 import com.example.fukushi.repository.LocationRepository;
@@ -42,9 +45,9 @@ public class StockService {
     }
 
     public void save(StockForm form) {
-        Product product = productRepository.findById(form.getProductId()).orElseThrow();
-        Location location = locationRepository.findById(form.getLocationId()).orElseThrow();
-        Status status = statusRepository.findById(form.getStatusId()).orElseThrow();
+        Product product = productRepository.findById(form.getProductId()).orElseThrow(() -> new ProductNotFoundException(form.getProductId()));
+        Location location = locationRepository.findById(form.getLocationId()).orElseThrow(() -> new LocationNotFoundException(form.getLocationId()));
+        Status status = statusRepository.findById(form.getStatusId()).orElseThrow(() -> new StatusNotFoundException(form.getStatusId()));
         String serialCode;
 
         if (form.getId() == null) {
