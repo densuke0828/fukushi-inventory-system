@@ -11,7 +11,7 @@
     <section layout:fragment="content">
         <div class="text-center mt-5">
             <h2>404</h2>
-            <p>ページが見つかりませんでした。</p>
+            <p th:text="${message}"></p>
             <a th:href="@{/stock}" class="btn btn-primary">一覧に戻る</a>
         </div>
     </section>

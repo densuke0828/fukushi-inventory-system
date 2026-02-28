@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.uk/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>500 - サーバーエラー</title>
 </head>
 <body>
-
+<section layout:fragment="content">
+    <div class="text-center mt-5">
+        <h2>500</h2>
+        <p th:text="${message}"></p>
+        <a th:href="@{/stock}" class="btn btn-primary">一覧に戻る</a>
+    </div>
+</section>
 </body>
 </html>

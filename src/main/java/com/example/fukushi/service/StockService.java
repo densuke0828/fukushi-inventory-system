@@ -6,6 +6,7 @@ import com.example.fukushi.entity.Product;
 import com.example.fukushi.entity.Status;
 import com.example.fukushi.entity.Stock;
 import com.example.fukushi.enums.EquipmentStatus;
+import com.example.fukushi.exception.StockNotFoundException;
 import com.example.fukushi.form.StockForm;
 import com.example.fukushi.repository.LocationRepository;
 import com.example.fukushi.repository.ProductRepository;
@@ -32,7 +33,7 @@ public class StockService {
     }
 
     public StockForm findById(Long id) {
-        Stock stock = stockRepository.findById(id).orElseThrow();
+        Stock stock = stockRepository.findById(id).orElseThrow(() -> new StockNotFoundException(id));
         return StockForm.fromEntity(stock);
     }
 
@@ -55,7 +56,7 @@ public class StockService {
                     .orElse(0);
             serialCode = String.format("%s-%04d", prefix, maxNumber +1);
         } else {
-            Stock existing = stockRepository.findById(form.getId()).orElseThrow();
+            Stock existing = stockRepository.findById(form.getId()).orElseThrow(() -> new StockNotFoundException(form.getId()));
             serialCode = existing.getSerialCode();
         }
 
@@ -73,6 +74,9 @@ public class StockService {
     }
 
     public void delete(Long id) {
+        if (!stockRepository.existsById(id)) {
+            throw new StockNotFoundException(id);
+        }
         stockRepository.deleteById(id);
     }
 }
