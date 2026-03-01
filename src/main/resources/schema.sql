@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS manufactures;
 DROP TABLE IF EXISTS rental_record;
 DROP TABLE IF EXISTS equipment;
+DROP TABLE IF EXISTS users;
 
 -- メーカーテーブル
 CREATE TABLE manufactures (
@@ -62,6 +63,16 @@ CREATE TABLE stocks (
     statuses_id INT NOT NULL REFERENCES statuses(id),
     purchased_at DATE,
     notes VARCHAR(500),
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- ユーザーテーブル
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
