@@ -122,18 +122,3 @@ INSERT INTO stocks (
     NOW(),
     NOW()
 );
-
--- 初期データ: ユーザーデータ
---INSERT INTO users (
---    username,
---    password,
---    role,
---    created_at,
---    updated_at
---) VALUES (
---    'testUser',
---    '$2a$10$4KnTIby2CcsQvdqldROgN.9hnDhedoOIz8x.tYdlM4vQR5Ajln1bS',
---    'ADMIN',
---    Now(),
---    Now()
---);
