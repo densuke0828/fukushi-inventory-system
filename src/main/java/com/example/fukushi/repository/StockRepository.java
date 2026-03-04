@@ -1,6 +1,5 @@
 package com.example.fukushi.repository;
 
-import com.example.fukushi.entity.Category;
 import com.example.fukushi.entity.Stock;
 import com.example.fukushi.enums.EquipmentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +12,11 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
     List<Stock> findByStatus_Status(EquipmentStatus status);
 
     List<Stock> findBySerialCodeStartingWith(String prefix);
+
+    List<Stock> findByProduct_Category_Id(Long categoryId);
+
+    List<Stock> findByStatus_Id(Long statusId);
+
+    List<Stock> findByProduct_Category_IdAndStatus_Id(Long categoryId, Long statusId);
+
 }

@@ -1,12 +1,7 @@
 package com.example.fukushi.controller;
 
-import com.example.fukushi.enums.EquipmentStatus;
 import com.example.fukushi.form.StockForm;
-import com.example.fukushi.service.LocationService;
-import com.example.fukushi.service.ProductService;
-import com.example.fukushi.service.StatusService;
-import com.example.fukushi.service.StockService;
-import jakarta.validation.Valid;
+import com.example.fukushi.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,33 +14,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/stock")
 @RequiredArgsConstructor
 public class StockController {
-
     private final StockService stockService;
     private final StatusService statusService;
     private final LocationService locationService;
     private final ProductService productService;
-    
+    private final CategoryService categoryService;
 
-
-//    @RequestParam(required = false) Category category,
-//    @RequestParam(required = false) EquipmentStatus status,
     @GetMapping
-    public String list(Model model) {
-//        if (category != null && status != null) {
-//            model.addAttribute("stocks",
-//                    stockService.findByCategoryAndStatus(category, status));
-//        } else if (category != null) {
-//            model.addAttribute("stocks", equipmentService.findByCategory(category));
-//        } else if (status != null) {
-//            model.addAttribute("stocks", equipmentService.findByStatus(status));
-//        } else {
-//            model.addAttribute("stocks", equipmentService.findAll());
-//        }
-//        model.addAttribute("categories", EquipmentCategory.values());
-//        model.addAttribute("statuses", EquipmentStatus.values());
-//        model.addAttribute("selectedCategory", category);
-//        model.addAttribute("selectedStatus", status);
-        model.addAttribute("stocks", stockService.findAll());
+    public String list(
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) Long statusId,
+            Model model) {
+        model.addAttribute("stocks", stockService.findByFilter(categoryId, statusId));
+        model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("statuses", statusService.findAll());
+        model.addAttribute("selectedCategoryId", categoryId);
+        model.addAttribute("selectedStatusId", statusId);
         return "stock/list";
     }
 

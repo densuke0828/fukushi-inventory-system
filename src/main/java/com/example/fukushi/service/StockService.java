@@ -44,6 +44,20 @@ public class StockService {
         return stockRepository.findByStatus_Status(status);
     }
 
+    public List<StockDto> findByFilter(Long categoryId, Long statusId) {
+        List<Stock> stocks;
+        if (categoryId != null && statusId != null) {
+            stocks = stockRepository.findByProduct_Category_IdAndStatus_Id(categoryId, statusId);
+        } else if (categoryId != null) {
+            stocks = stockRepository.findByProduct_Category_Id(categoryId);
+        } else if (statusId != null) {
+            stocks = stockRepository.findByStatus_Id(statusId);
+        } else {
+            stocks = stockRepository.findAll();
+        }
+        return stocks.stream().map(StockDto::fromEntity).toList();
+    }
+
     public void save(StockForm form) {
         Product product = productRepository.findById(form.getProductId()).orElseThrow(() -> new ProductNotFoundException(form.getProductId()));
         Location location = locationRepository.findById(form.getLocationId()).orElseThrow(() -> new LocationNotFoundException(form.getLocationId()));
