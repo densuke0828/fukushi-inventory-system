@@ -2,6 +2,8 @@ package com.example.fukushi.repository;
 
 import com.example.fukushi.entity.Stock;
 import com.example.fukushi.enums.EquipmentStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,10 +15,9 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
 
     List<Stock> findBySerialCodeStartingWith(String prefix);
 
-    List<Stock> findByProduct_Category_Id(Long categoryId);
+    Page<Stock> findByProduct_Category_Id(Long categoryId, Pageable pageable);
 
-    List<Stock> findByStatus_Id(Long statusId);
+    Page<Stock> findByStatus_Id(Long statusId, Pageable pageable);
 
-    List<Stock> findByProduct_Category_IdAndStatus_Id(Long categoryId, Long statusId);
-
+    Page<Stock> findByProduct_Category_IdAndStatus_Id(Long categoryId, Long statusId, Pageable pageable);
 }

@@ -1,8 +1,12 @@
 package com.example.fukushi.controller;
 
+import com.example.fukushi.dto.StockDto;
 import com.example.fukushi.form.StockForm;
 import com.example.fukushi.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,8 +28,11 @@ public class StockController {
     public String list(
             @RequestParam(required = false) Long categoryId,
             @RequestParam(required = false) Long statusId,
+            @RequestParam(defaultValue = "0") int page,
             Model model) {
-        model.addAttribute("stocks", stockService.findByFilter(categoryId, statusId));
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<StockDto> stockPage = stockService.findByFilter(categoryId, statusId, pageable);
+        model.addAttribute("stockPage", stockPage);
         model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("statuses", statusService.findAll());
         model.addAttribute("selectedCategoryId", categoryId);

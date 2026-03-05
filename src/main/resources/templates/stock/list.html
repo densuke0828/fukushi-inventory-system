@@ -33,7 +33,7 @@
         </select>
         <button type="submit" class="btn btn-primary btn-sm">絞り込み</button>
     </form>
-
+    <!-- 一覧 -->
     <table class="table table-bordered table-hover">
         <thead class="table-light">
             <tr>
@@ -48,7 +48,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="stock : ${stocks}">
+            <tr th:each="stock : ${stockPage.content}">
                 <td th:text="${stock.serialCode}"></td>
                 <td th:text="${stock.productName}"></td>
                 <td th:text="${stock.manufactureName}"></td>
@@ -73,11 +73,39 @@
                     </span>
                 </td>
             </tr>
-            <tr th:if="${#lists.isEmpty(stocks)}">
+            <tr th:if="${#lists.isEmpty(stockPage.content)}">
                 <td colspan="8" class="text-center text-muted">データがありません</td>
             </tr>
         </tbody>
     </table>
+    <!-- ページネーション -->
+    <nav>
+        <ul class="pagination justify-content-center mt-3">
+            <li class="page-item" th:classappend="${stockPage.first} ? 'disabled'">
+                <a class="page-link"
+                    th:href="@{/stock(page=${stockPage.number - 1},
+                    categoryId=${selectedCategoryId}, statusId=${selectedStatusId})}">
+                    前へ
+                </a>
+            </li>
+            <li class="page-item"
+                th:each="i : ${#numbers.sequence(0, stockPage.totalPages - 1)}"
+                th:classappend="${i == stockPage.number} ? 'active'">
+                <a class="page-link"
+                    th:href="@{/stock(page=${i},
+                    categoryId=${selectedCategoryId}, statusId=${selectedStatusId})}"
+                    th:text="${i + 1}">
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${stockPage.last} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/stock(page=${stockPage.number + 1},
+                    categoryId=${selectedCategoryId}, statusId=${selectedStatusId})}">
+                    次へ
+                </a>
+            </li>
+        </ul>
+    </nav>
 </section>
 </body>
 </html>

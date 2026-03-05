@@ -16,6 +16,8 @@ import com.example.fukushi.repository.ProductRepository;
 import com.example.fukushi.repository.StatusRepository;
 import com.example.fukushi.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,18 +46,18 @@ public class StockService {
         return stockRepository.findByStatus_Status(status);
     }
 
-    public List<StockDto> findByFilter(Long categoryId, Long statusId) {
-        List<Stock> stocks;
+    public Page<StockDto> findByFilter(Long categoryId, Long statusId, Pageable pageable) {
+        Page<Stock> stocks;
         if (categoryId != null && statusId != null) {
-            stocks = stockRepository.findByProduct_Category_IdAndStatus_Id(categoryId, statusId);
+            stocks = stockRepository.findByProduct_Category_IdAndStatus_Id(categoryId, statusId, pageable);
         } else if (categoryId != null) {
-            stocks = stockRepository.findByProduct_Category_Id(categoryId);
+            stocks = stockRepository.findByProduct_Category_Id(categoryId, pageable);
         } else if (statusId != null) {
-            stocks = stockRepository.findByStatus_Id(statusId);
+            stocks = stockRepository.findByStatus_Id(statusId, pageable);
         } else {
-            stocks = stockRepository.findAll();
+            stocks = stockRepository.findAll(pageable);
         }
-        return stocks.stream().map(StockDto::fromEntity).toList();
+        return stocks.map(StockDto::fromEntity);
     }
 
     public void save(StockForm form) {
