@@ -78,4 +78,10 @@ public class StockServiceTest {
         when(stockRepository.findById(99L)).thenReturn(Optional.empty());
         assertThrows(StockNotFoundException.class, () -> stockService.findById(99L));
     }
+
+    @Test
+    void delete_存在しないIDの時_StockNotFoundExceptionがスローされる() {
+        when(stockRepository.existsById(99L)).thenReturn(false);
+        assertThrows(StockNotFoundException.class, () -> stockService.delete(99L));
+    }
  }
