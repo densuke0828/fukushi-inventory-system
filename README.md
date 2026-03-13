@@ -1,5 +1,8 @@
 # Fukushi Inventory System - 福祉用具在庫管理システム
 
+## テスト結果
+![CI](https://github.com/densuke0828/fukushi-inventory-system/actions/workflows/ci.yml/badge.svg)
+
 ## アプリケーションの概要
 
 **福祉用具(車椅子・特殊寝台・歩行器など) の在庫管理を行う Web アプリケーション**
